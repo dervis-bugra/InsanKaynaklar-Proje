@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbIKProjeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dokumanlar">
+          <Key>
+            <PropertyRef Name="DokumanID" />
+          </Key>
+          <Property Name="DokumanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DokumanGonderenKisi" Type="varchar" MaxLength="50" />
+          <Property Name="DokumanGonderenDepartman" Type="varchar" MaxLength="50" />
+          <Property Name="DokumanGelenDepartman" Type="int" />
+          <Property Name="Dokuman" Type="varchar(max)" />
+          <Property Name="DokumanAcıklama" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="IK_Departman">
+          <Key>
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="DepartmanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="varchar" MaxLength="50" />
+          <Property Name="Departman No" Type="int" />
+          <Property Name="Aktiflik" Type="bit" />
+          <Property Name="Calısmadurumu" Type="bit" />
+        </EntityType>
+        <EntityType Name="IK_Duyuru">
+          <Key>
+            <PropertyRef Name="DuyuruId" />
+          </Key>
+          <Property Name="DuyuruId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DuyuruMetin" Type="varchar(max)" />
+          <Property Name="DuyuruResim" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DuyuruSilinmeTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="IK_Mesaj">
+          <Key>
+            <PropertyRef Name="MesajID" />
+          </Key>
+          <Property Name="MesajID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MesajGonderenDepartman" Type="int" />
+          <Property Name="MesajGonderenKisi" Type="varchar" MaxLength="50" />
+          <Property Name="MesajAlanDepartman" Type="int" />
+          <Property Name="MesajAlanKişi" Type="varchar" MaxLength="50" />
+          <Property Name="Mesaj" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="IK_Personel">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+          </Key>
+          <Property Name="PersonelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonelDepartmanId" Type="int" />
+          <Property Name="PersonelDepartmanIsim" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelSicilNo" Type="int" Nullable="false" />
+          <Property Name="PersonelKullanıcıAdı" Type="varchar" MaxLength="16" />
+          <Property Name="PersonelAd" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelDogumTarihi" Type="date" />
+          <Property Name="PersonelCinsiyet" Type="varchar" MaxLength="5" />
+          <Property Name="PersonelRol" Type="int" Nullable="false" />
+          <Property Name="PersonelSifre" Type="varchar" MaxLength="16" />
+          <Property Name="PersonelResim" Type="varchar" MaxLength="50" />
+          <Property Name="Aktiflik" Type="bit" />
+          <Property Name="CalısmaDurumu" Type="bit" />
+        </EntityType>
+        <EntityType Name="IK_Rol">
+          <Key>
+            <PropertyRef Name="RolId" />
+          </Key>
+          <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RolIsim" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Maliye">
+          <Key>
+            <PropertyRef Name="MaliyeID" />
+          </Key>
+          <Property Name="MaliyeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Urun" Type="varchar" MaxLength="50" />
+          <Property Name="maliyet" Type="int" />
+          <Property Name="satis" Type="int" />
+          <Property Name="kar" Type="int" />
+          <Property Name="Aktiflik" Type="bit" />
+          <Property Name="CalismaDurumu" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DbIKProje.dbo.MesajlarView_Model' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MesajlarView_Model">
+          <Key>
+            <PropertyRef Name="MesajID" />
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="MesajGonderenDepartman" Type="int" />
+          <Property Name="Mesaj" Type="varchar(max)" />
+          <Property Name="MesajAlanKişi" Type="varchar" MaxLength="50" />
+          <Property Name="MesajAlanDepartman" Type="int" />
+          <Property Name="MesajGonderenKisi" Type="varchar" MaxLength="50" />
+          <Property Name="MesajID" Type="int" Nullable="false" />
+          <Property Name="DepartmanID" Type="int" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DbIKProje.dbo.Personel-departman-rol-model-view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Personel-departman-rol-model-view">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+            <PropertyRef Name="RolId" />
+            <PropertyRef Name="DepartmanID" />
+            <PropertyRef Name="PersonelSicilNo" />
+            <PropertyRef Name="PersonelRol" />
+          </Key>
+          <Property Name="PersonelID" Type="int" Nullable="false" />
+          <Property Name="PersonelDepartmanId" Type="int" />
+          <Property Name="RolIsim" Type="varchar" MaxLength="50" />
+          <Property Name="RolId" Type="int" Nullable="false" />
+          <Property Name="DepartmanID" Type="int" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="varchar" MaxLength="50" />
+          <Property Name="Departman No" Type="int" />
+          <Property Name="PersonelSicilNo" Type="int" Nullable="false" />
+          <Property Name="PersonelAd" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelDogumTarihi" Type="date" />
+          <Property Name="PersonelCinsiyet" Type="varchar" MaxLength="5" />
+          <Property Name="PersonelRol" Type="int" Nullable="false" />
+          <Property Name="PersonelResim" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelKullanıcıAdı" Type="varchar" MaxLength="16" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DbIKProje.dbo.View_DOKUMANLARDEPARTMANLAR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_DOKUMANLARDEPARTMANLAR">
+          <Key>
+            <PropertyRef Name="DokumanID" />
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="DokumanID" Type="int" Nullable="false" />
+          <Property Name="DokumanGonderenKisi" Type="varchar" MaxLength="50" />
+          <Property Name="DokumanGonderenDepartman" Type="varchar" MaxLength="50" />
+          <Property Name="DokumanGelenDepartman" Type="int" />
+          <Property Name="Dokuman" Type="varchar(max)" />
+          <Property Name="DokumanAcıklama" Type="varchar(max)" />
+          <Property Name="DepartmanID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DbIKProje.dbo.View_Mesajlar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Mesajlar">
+          <Key>
+            <PropertyRef Name="DepartmanID" />
+            <PropertyRef Name="MesajID" />
+          </Key>
+          <Property Name="MesajGonderenKisi" Type="varchar" MaxLength="50" />
+          <Property Name="Mesaj" Type="varchar(max)" />
+          <Property Name="DepartmanID" Type="int" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="varchar" MaxLength="50" />
+          <Property Name="MesajGonderenDepartman" Type="int" />
+          <Property Name="MesajAlanDepartman" Type="int" />
+          <Property Name="MesajAlanKişi" Type="varchar" MaxLength="50" />
+          <Property Name="MesajID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DbIKProje.dbo.View_PersonelDepartman' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_PersonelDepartman">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+            <PropertyRef Name="PersonelSicilNo" />
+            <PropertyRef Name="PersonelRol" />
+          </Key>
+          <Property Name="PersonelID" Type="int" Nullable="false" />
+          <Property Name="PersonelDepartmanId" Type="int" />
+          <Property Name="PersonelSicilNo" Type="int" Nullable="false" />
+          <Property Name="PersonelKullanıcıAdı" Type="varchar" MaxLength="16" />
+          <Property Name="PersonelAd" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelDepartmanIsim" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelDogumTarihi" Type="date" />
+          <Property Name="PersonelCinsiyet" Type="varchar" MaxLength="5" />
+          <Property Name="PersonelRol" Type="int" Nullable="false" />
+          <Property Name="PersonelResim" Type="varchar" MaxLength="50" />
+          <Property Name="RolId" Type="int" />
+          <Property Name="RolIsim" Type="varchar" MaxLength="50" />
+          <Property Name="Aktiflik" Type="bit" />
+          <Property Name="Expr1" Type="bit" />
+          <Property Name="DepartmanID" Type="int" />
+          <Property Name="DepartmanIsim" Type="varchar" MaxLength="50" />
+          <Property Name="CalısmaDurumu" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="DbIKProjeModelStoreContainer">
+          <EntitySet Name="Dokumanlar" EntityType="Self.Dokumanlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IK_Departman" EntityType="Self.IK_Departman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IK_Duyuru" EntityType="Self.IK_Duyuru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IK_Mesaj" EntityType="Self.IK_Mesaj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IK_Personel" EntityType="Self.IK_Personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IK_Rol" EntityType="Self.IK_Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maliye" EntityType="Self.Maliye" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MesajlarView_Model" EntityType="Self.MesajlarView_Model" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MesajlarView_Model].[MesajGonderenDepartman] AS [MesajGonderenDepartman], 
+    [MesajlarView_Model].[Mesaj] AS [Mesaj], 
+    [MesajlarView_Model].[MesajAlanKişi] AS [MesajAlanKişi], 
+    [MesajlarView_Model].[MesajAlanDepartman] AS [MesajAlanDepartman], 
+    [MesajlarView_Model].[MesajGonderenKisi] AS [MesajGonderenKisi], 
+    [MesajlarView_Model].[MesajID] AS [MesajID], 
+    [MesajlarView_Model].[DepartmanID] AS [DepartmanID], 
+    [MesajlarView_Model].[DepartmanIsim] AS [DepartmanIsim]
+    FROM [dbo].[MesajlarView_Model] AS [MesajlarView_Model]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Personel-departman-rol-model-view" EntityType="Self.Personel-departman-rol-model-view" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Personel-departman-rol-model-view].[PersonelID] AS [PersonelID], 
+    [Personel-departman-rol-model-view].[PersonelDepartmanId] AS [PersonelDepartmanId], 
+    [Personel-departman-rol-model-view].[RolIsim] AS [RolIsim], 
+    [Personel-departman-rol-model-view].[RolId] AS [RolId], 
+    [Personel-departman-rol-model-view].[DepartmanID] AS [DepartmanID], 
+    [Personel-departman-rol-model-view].[DepartmanIsim] AS [DepartmanIsim], 
+    [Personel-departman-rol-model-view].[Departman No] AS [Departman No], 
+    [Personel-departman-rol-model-view].[PersonelSicilNo] AS [PersonelSicilNo], 
+    [Personel-departman-rol-model-view].[PersonelAd] AS [PersonelAd], 
+    [Personel-departman-rol-model-view].[PersonelSoyad] AS [PersonelSoyad], 
+    [Personel-departman-rol-model-view].[PersonelDogumTarihi] AS [PersonelDogumTarihi], 
+    [Personel-departman-rol-model-view].[PersonelCinsiyet] AS [PersonelCinsiyet], 
+    [Personel-departman-rol-model-view].[PersonelRol] AS [PersonelRol], 
+    [Personel-departman-rol-model-view].[PersonelResim] AS [PersonelResim], 
+    [Personel-departman-rol-model-view].[PersonelKullanıcıAdı] AS [PersonelKullanıcıAdı]
+    FROM [dbo].[Personel-departman-rol-model-view] AS [Personel-departman-rol-model-view]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_DOKUMANLARDEPARTMANLAR" EntityType="Self.View_DOKUMANLARDEPARTMANLAR" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_DOKUMANLARDEPARTMANLAR].[DokumanID] AS [DokumanID], 
+    [View_DOKUMANLARDEPARTMANLAR].[DokumanGonderenKisi] AS [DokumanGonderenKisi], 
+    [View_DOKUMANLARDEPARTMANLAR].[DokumanGonderenDepartman] AS [DokumanGonderenDepartman], 
+    [View_DOKUMANLARDEPARTMANLAR].[DokumanGelenDepartman] AS [DokumanGelenDepartman], 
+    [View_DOKUMANLARDEPARTMANLAR].[Dokuman] AS [Dokuman], 
+    [View_DOKUMANLARDEPARTMANLAR].[DokumanAcıklama] AS [DokumanAcıklama], 
+    [View_DOKUMANLARDEPARTMANLAR].[DepartmanID] AS [DepartmanID]
+    FROM [dbo].[View_DOKUMANLARDEPARTMANLAR] AS [View_DOKUMANLARDEPARTMANLAR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Mesajlar" EntityType="Self.View_Mesajlar" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Mesajlar].[MesajGonderenKisi] AS [MesajGonderenKisi], 
+    [View_Mesajlar].[Mesaj] AS [Mesaj], 
+    [View_Mesajlar].[DepartmanID] AS [DepartmanID], 
+    [View_Mesajlar].[DepartmanIsim] AS [DepartmanIsim], 
+    [View_Mesajlar].[MesajGonderenDepartman] AS [MesajGonderenDepartman], 
+    [View_Mesajlar].[MesajAlanDepartman] AS [MesajAlanDepartman], 
+    [View_Mesajlar].[MesajAlanKişi] AS [MesajAlanKişi], 
+    [View_Mesajlar].[MesajID] AS [MesajID]
+    FROM [dbo].[View_Mesajlar] AS [View_Mesajlar]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_PersonelDepartman" EntityType="Self.View_PersonelDepartman" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_PersonelDepartman].[PersonelID] AS [PersonelID], 
+    [View_PersonelDepartman].[PersonelDepartmanId] AS [PersonelDepartmanId], 
+    [View_PersonelDepartman].[PersonelSicilNo] AS [PersonelSicilNo], 
+    [View_PersonelDepartman].[PersonelKullanıcıAdı] AS [PersonelKullanıcıAdı], 
+    [View_PersonelDepartman].[PersonelAd] AS [PersonelAd], 
+    [View_PersonelDepartman].[PersonelDepartmanIsim] AS [PersonelDepartmanIsim], 
+    [View_PersonelDepartman].[PersonelSoyad] AS [PersonelSoyad], 
+    [View_PersonelDepartman].[PersonelDogumTarihi] AS [PersonelDogumTarihi], 
+    [View_PersonelDepartman].[PersonelCinsiyet] AS [PersonelCinsiyet], 
+    [View_PersonelDepartman].[PersonelRol] AS [PersonelRol], 
+    [View_PersonelDepartman].[PersonelResim] AS [PersonelResim], 
+    [View_PersonelDepartman].[RolId] AS [RolId], 
+    [View_PersonelDepartman].[RolIsim] AS [RolIsim], 
+    [View_PersonelDepartman].[Aktiflik] AS [Aktiflik], 
+    [View_PersonelDepartman].[Expr1] AS [Expr1], 
+    [View_PersonelDepartman].[DepartmanID] AS [DepartmanID], 
+    [View_PersonelDepartman].[DepartmanIsim] AS [DepartmanIsim], 
+    [View_PersonelDepartman].[CalısmaDurumu] AS [CalısmaDurumu]
+    FROM [dbo].[View_PersonelDepartman] AS [View_PersonelDepartman]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbIKProjeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="IK_Duyuru">
+          <Key>
+            <PropertyRef Name="DuyuruId" />
+          </Key>
+          <Property Name="DuyuruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DuyuruMetin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DuyuruResim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DuyuruSilinmeTarihi" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="IK_Mesaj">
+          <Key>
+            <PropertyRef Name="MesajID" />
+          </Key>
+          <Property Name="MesajID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MesajGonderenDepartman" Type="Int32" />
+          <Property Name="MesajGonderenKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MesajAlanDepartman" Type="Int32" />
+          <Property Name="MesajAlanKişi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="IK_Personel">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+          </Key>
+          <Property Name="PersonelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonelDepartmanId" Type="Int32" />
+          <Property Name="PersonelDepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelSicilNo" Type="Int32" Nullable="false" />
+          <Property Name="PersonelKullanıcıAdı" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelDogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="PersonelCinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelRol" Type="Int32" Nullable="false" />
+          <Property Name="PersonelSifre" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelResim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Aktiflik" Type="Boolean" />
+          <Property Name="CalısmaDurumu" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="IK_Rol">
+          <Key>
+            <PropertyRef Name="RolId" />
+          </Key>
+          <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RolIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MesajlarView_Model">
+          <Key>
+            <PropertyRef Name="MesajID" />
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="MesajGonderenDepartman" Type="Int32" />
+          <Property Name="Mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MesajAlanKişi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MesajAlanDepartman" Type="Int32" />
+          <Property Name="MesajGonderenKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MesajID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Personel_departman_rol_model_view">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+            <PropertyRef Name="RolId" />
+            <PropertyRef Name="DepartmanID" />
+            <PropertyRef Name="PersonelSicilNo" />
+            <PropertyRef Name="PersonelRol" />
+          </Key>
+          <Property Name="PersonelID" Type="Int32" Nullable="false" />
+          <Property Name="PersonelDepartmanId" Type="Int32" />
+          <Property Name="RolIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RolId" Type="Int32" Nullable="false" />
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Departman_No" Type="Int32" />
+          <Property Name="PersonelSicilNo" Type="Int32" Nullable="false" />
+          <Property Name="PersonelAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelDogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="PersonelCinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelRol" Type="Int32" Nullable="false" />
+          <Property Name="PersonelResim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelKullanıcıAdı" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_Mesajlar">
+          <Key>
+            <PropertyRef Name="DepartmanID" />
+            <PropertyRef Name="MesajID" />
+          </Key>
+          <Property Name="MesajGonderenKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MesajGonderenDepartman" Type="Int32" />
+          <Property Name="MesajAlanDepartman" Type="Int32" />
+          <Property Name="MesajAlanKişi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MesajID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_PersonelDepartman">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+            <PropertyRef Name="PersonelSicilNo" />
+            <PropertyRef Name="PersonelRol" />
+          </Key>
+          <Property Name="PersonelID" Type="Int32" Nullable="false" />
+          <Property Name="PersonelDepartmanId" Type="Int32" />
+          <Property Name="PersonelSicilNo" Type="Int32" Nullable="false" />
+          <Property Name="PersonelKullanıcıAdı" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelDepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelDogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="PersonelCinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelRol" Type="Int32" Nullable="false" />
+          <Property Name="PersonelResim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RolId" Type="Int32" />
+          <Property Name="RolIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Aktiflik" Type="Boolean" />
+          <Property Name="Expr1" Type="Boolean" />
+          <Property Name="DepartmanID" Type="Int32" />
+          <Property Name="DepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CalısmaDurumu" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="DbIKProjeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="IK_Duyuru" EntityType="Self.IK_Duyuru" />
+          <EntitySet Name="IK_Mesaj" EntityType="Self.IK_Mesaj" />
+          <EntitySet Name="IK_Personel" EntityType="Self.IK_Personel" />
+          <EntitySet Name="IK_Rol" EntityType="Self.IK_Rol" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="MesajlarView_Model" EntityType="Self.MesajlarView_Model" />
+          <EntitySet Name="Personel_departman_rol_model_view" EntityType="Self.Personel_departman_rol_model_view" />
+          <EntitySet Name="View_Mesajlar" EntityType="Self.View_Mesajlar" />
+          <EntitySet Name="View_PersonelDepartman" EntityType="Self.View_PersonelDepartman" />
+          <EntitySet Name="IK_Departman" EntityType="DbIKProjeModel.IK_Departman" />
+          <EntitySet Name="Maliye" EntityType="DbIKProjeModel.Maliye" />
+          <EntitySet Name="Dokumanlar" EntityType="DbIKProjeModel.Dokumanlar" />
+          <EntitySet Name="View_DOKUMANLARDEPARTMANLAR" EntityType="DbIKProjeModel.View_DOKUMANLARDEPARTMANLAR" />
+        </EntityContainer>
+        <EntityType Name="IK_Departman">
+          <Key>
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmanIsim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Departman_No" Type="Int32" />
+          <Property Name="Aktiflik" Type="Boolean" />
+          <Property Name="Calısmadurumu" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Maliye">
+          <Key>
+            <PropertyRef Name="MaliyeID" />
+          </Key>
+          <Property Name="MaliyeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Urun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="maliyet" Type="Int32" />
+          <Property Name="satis" Type="Int32" />
+          <Property Name="kar" Type="Int32" />
+          <Property Name="Aktiflik" Type="Boolean" />
+          <Property Name="CalismaDurumu" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Dokumanlar">
+          <Key>
+            <PropertyRef Name="DokumanID" />
+          </Key>
+          <Property Name="DokumanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DokumanGonderenKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DokumanGonderenDepartman" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DokumanGelenDepartman" Type="Int32" />
+          <Property Name="Dokuman" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DokumanAcıklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_DOKUMANLARDEPARTMANLAR">
+          <Key>
+            <PropertyRef Name="DokumanID" />
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="DokumanID" Type="Int32" Nullable="false" />
+          <Property Name="DokumanGonderenKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DokumanGonderenDepartman" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DokumanGelenDepartman" Type="Int32" />
+          <Property Name="Dokuman" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DokumanAcıklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbIKProjeModelStoreContainer" CdmEntityContainer="DbIKProjeEntities">
+          <EntitySetMapping Name="IK_Duyuru">
+            <EntityTypeMapping TypeName="DbIKProjeModel.IK_Duyuru">
+              <MappingFragment StoreEntitySet="IK_Duyuru">
+                <ScalarProperty Name="DuyuruId" ColumnName="DuyuruId" />
+                <ScalarProperty Name="DuyuruMetin" ColumnName="DuyuruMetin" />
+                <ScalarProperty Name="DuyuruResim" ColumnName="DuyuruResim" />
+                <ScalarProperty Name="DuyuruSilinmeTarihi" ColumnName="DuyuruSilinmeTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IK_Mesaj">
+            <EntityTypeMapping TypeName="DbIKProjeModel.IK_Mesaj">
+              <MappingFragment StoreEntitySet="IK_Mesaj">
+                <ScalarProperty Name="MesajID" ColumnName="MesajID" />
+                <ScalarProperty Name="MesajGonderenDepartman" ColumnName="MesajGonderenDepartman" />
+                <ScalarProperty Name="MesajGonderenKisi" ColumnName="MesajGonderenKisi" />
+                <ScalarProperty Name="MesajAlanDepartman" ColumnName="MesajAlanDepartman" />
+                <ScalarProperty Name="MesajAlanKişi" ColumnName="MesajAlanKişi" />
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IK_Personel">
+            <EntityTypeMapping TypeName="DbIKProjeModel.IK_Personel">
+              <MappingFragment StoreEntitySet="IK_Personel">
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="PersonelDepartmanId" ColumnName="PersonelDepartmanId" />
+                <ScalarProperty Name="PersonelDepartmanIsim" ColumnName="PersonelDepartmanIsim" />
+                <ScalarProperty Name="PersonelSicilNo" ColumnName="PersonelSicilNo" />
+                <ScalarProperty Name="PersonelKullanıcıAdı" ColumnName="PersonelKullanıcıAdı" />
+                <ScalarProperty Name="PersonelAd" ColumnName="PersonelAd" />
+                <ScalarProperty Name="PersonelSoyad" ColumnName="PersonelSoyad" />
+                <ScalarProperty Name="PersonelDogumTarihi" ColumnName="PersonelDogumTarihi" />
+                <ScalarProperty Name="PersonelCinsiyet" ColumnName="PersonelCinsiyet" />
+                <ScalarProperty Name="PersonelRol" ColumnName="PersonelRol" />
+                <ScalarProperty Name="PersonelSifre" ColumnName="PersonelSifre" />
+                <ScalarProperty Name="PersonelResim" ColumnName="PersonelResim" />
+                <ScalarProperty Name="Aktiflik" ColumnName="Aktiflik" />
+                <ScalarProperty Name="CalısmaDurumu" ColumnName="CalısmaDurumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IK_Rol">
+            <EntityTypeMapping TypeName="DbIKProjeModel.IK_Rol">
+              <MappingFragment StoreEntitySet="IK_Rol">
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="RolIsim" ColumnName="RolIsim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DbIKProjeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MesajlarView_Model">
+            <EntityTypeMapping TypeName="DbIKProjeModel.MesajlarView_Model">
+              <MappingFragment StoreEntitySet="MesajlarView_Model">
+                <ScalarProperty Name="MesajGonderenDepartman" ColumnName="MesajGonderenDepartman" />
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="MesajAlanKişi" ColumnName="MesajAlanKişi" />
+                <ScalarProperty Name="MesajAlanDepartman" ColumnName="MesajAlanDepartman" />
+                <ScalarProperty Name="MesajGonderenKisi" ColumnName="MesajGonderenKisi" />
+                <ScalarProperty Name="MesajID" ColumnName="MesajID" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="DepartmanIsim" ColumnName="DepartmanIsim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personel_departman_rol_model_view">
+            <EntityTypeMapping TypeName="DbIKProjeModel.Personel_departman_rol_model_view">
+              <MappingFragment StoreEntitySet="Personel-departman-rol-model-view">
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="PersonelDepartmanId" ColumnName="PersonelDepartmanId" />
+                <ScalarProperty Name="RolIsim" ColumnName="RolIsim" />
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="DepartmanIsim" ColumnName="DepartmanIsim" />
+                <ScalarProperty Name="Departman_No" ColumnName="Departman No" />
+                <ScalarProperty Name="PersonelSicilNo" ColumnName="PersonelSicilNo" />
+                <ScalarProperty Name="PersonelAd" ColumnName="PersonelAd" />
+                <ScalarProperty Name="PersonelSoyad" ColumnName="PersonelSoyad" />
+                <ScalarProperty Name="PersonelDogumTarihi" ColumnName="PersonelDogumTarihi" />
+                <ScalarProperty Name="PersonelCinsiyet" ColumnName="PersonelCinsiyet" />
+                <ScalarProperty Name="PersonelRol" ColumnName="PersonelRol" />
+                <ScalarProperty Name="PersonelResim" ColumnName="PersonelResim" />
+                <ScalarProperty Name="PersonelKullanıcıAdı" ColumnName="PersonelKullanıcıAdı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Mesajlar">
+            <EntityTypeMapping TypeName="DbIKProjeModel.View_Mesajlar">
+              <MappingFragment StoreEntitySet="View_Mesajlar">
+                <ScalarProperty Name="MesajGonderenKisi" ColumnName="MesajGonderenKisi" />
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="DepartmanIsim" ColumnName="DepartmanIsim" />
+                <ScalarProperty Name="MesajGonderenDepartman" ColumnName="MesajGonderenDepartman" />
+                <ScalarProperty Name="MesajAlanDepartman" ColumnName="MesajAlanDepartman" />
+                <ScalarProperty Name="MesajAlanKişi" ColumnName="MesajAlanKişi" />
+                <ScalarProperty Name="MesajID" ColumnName="MesajID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_PersonelDepartman">
+            <EntityTypeMapping TypeName="DbIKProjeModel.View_PersonelDepartman">
+              <MappingFragment StoreEntitySet="View_PersonelDepartman">
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="PersonelDepartmanId" ColumnName="PersonelDepartmanId" />
+                <ScalarProperty Name="PersonelSicilNo" ColumnName="PersonelSicilNo" />
+                <ScalarProperty Name="PersonelKullanıcıAdı" ColumnName="PersonelKullanıcıAdı" />
+                <ScalarProperty Name="PersonelAd" ColumnName="PersonelAd" />
+                <ScalarProperty Name="PersonelDepartmanIsim" ColumnName="PersonelDepartmanIsim" />
+                <ScalarProperty Name="PersonelSoyad" ColumnName="PersonelSoyad" />
+                <ScalarProperty Name="PersonelDogumTarihi" ColumnName="PersonelDogumTarihi" />
+                <ScalarProperty Name="PersonelCinsiyet" ColumnName="PersonelCinsiyet" />
+                <ScalarProperty Name="PersonelRol" ColumnName="PersonelRol" />
+                <ScalarProperty Name="PersonelResim" ColumnName="PersonelResim" />
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="RolIsim" ColumnName="RolIsim" />
+                <ScalarProperty Name="Aktiflik" ColumnName="Aktiflik" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="DepartmanIsim" ColumnName="DepartmanIsim" />
+                <ScalarProperty Name="CalısmaDurumu" ColumnName="CalısmaDurumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IK_Departman">
+            <EntityTypeMapping TypeName="DbIKProjeModel.IK_Departman">
+              <MappingFragment StoreEntitySet="IK_Departman">
+                <ScalarProperty Name="Calısmadurumu" ColumnName="Calısmadurumu" />
+                <ScalarProperty Name="Aktiflik" ColumnName="Aktiflik" />
+                <ScalarProperty Name="Departman_No" ColumnName="Departman No" />
+                <ScalarProperty Name="DepartmanIsim" ColumnName="DepartmanIsim" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maliye">
+            <EntityTypeMapping TypeName="DbIKProjeModel.Maliye">
+              <MappingFragment StoreEntitySet="Maliye">
+                <ScalarProperty Name="CalismaDurumu" ColumnName="CalismaDurumu" />
+                <ScalarProperty Name="Aktiflik" ColumnName="Aktiflik" />
+                <ScalarProperty Name="kar" ColumnName="kar" />
+                <ScalarProperty Name="satis" ColumnName="satis" />
+                <ScalarProperty Name="maliyet" ColumnName="maliyet" />
+                <ScalarProperty Name="Urun" ColumnName="Urun" />
+                <ScalarProperty Name="MaliyeID" ColumnName="MaliyeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dokumanlar">
+            <EntityTypeMapping TypeName="DbIKProjeModel.Dokumanlar">
+              <MappingFragment StoreEntitySet="Dokumanlar">
+                <ScalarProperty Name="DokumanAcıklama" ColumnName="DokumanAcıklama" />
+                <ScalarProperty Name="Dokuman" ColumnName="Dokuman" />
+                <ScalarProperty Name="DokumanGelenDepartman" ColumnName="DokumanGelenDepartman" />
+                <ScalarProperty Name="DokumanGonderenDepartman" ColumnName="DokumanGonderenDepartman" />
+                <ScalarProperty Name="DokumanGonderenKisi" ColumnName="DokumanGonderenKisi" />
+                <ScalarProperty Name="DokumanID" ColumnName="DokumanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_DOKUMANLARDEPARTMANLAR">
+            <EntityTypeMapping TypeName="DbIKProjeModel.View_DOKUMANLARDEPARTMANLAR">
+              <MappingFragment StoreEntitySet="View_DOKUMANLARDEPARTMANLAR">
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="DokumanAcıklama" ColumnName="DokumanAcıklama" />
+                <ScalarProperty Name="Dokuman" ColumnName="Dokuman" />
+                <ScalarProperty Name="DokumanGelenDepartman" ColumnName="DokumanGelenDepartman" />
+                <ScalarProperty Name="DokumanGonderenDepartman" ColumnName="DokumanGonderenDepartman" />
+                <ScalarProperty Name="DokumanGonderenKisi" ColumnName="DokumanGonderenKisi" />
+                <ScalarProperty Name="DokumanID" ColumnName="DokumanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

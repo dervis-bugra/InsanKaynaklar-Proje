@@ -1,0 +1,480 @@
+﻿@model InsanKaynaklarıProje.Models.Entity.PersonellerDepartmanlarViewModel
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    ViewBag.Title = "Home Page";
+    var rol = Session["dprtmn"] as string;
+}
+@if (rol != null)
+{
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>Website Layout</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+        <style>
+
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: ghostwhite;
+            }
+
+            /* CSS property for header section */
+            .header {
+                background-color: white;
+                padding: 3px;
+                text-align: center;
+            }
+
+            /* CSS property for content section */
+            .columnA,
+            .columnC {
+                min-height: calc(80vh - 47px);
+                float: left;
+                padding: 15px;
+                text-align: justify;
+                margin-top: -10px;
+            }
+
+            .columnA {
+                background-color: ghostwhite;
+                width: 31%;
+                margin-right: 1%;
+                margin-left: 1%;
+            }
+
+            .columnA1 {
+                overflow-x: auto;
+                border-radius: 5%;
+                padding-top: 10%;
+                background-color: white;
+                min-height: calc(30vh);
+                margin-bottom: 10%;
+            }
+
+            .columnA2 {
+                
+                overflow-x: auto;
+                border-radius: 5%;
+                background-color: white;
+                min-height: calc(30vh);
+            }
+
+            .columnC {
+                background-color: ghostwhite;
+                position: relative; /* Added for positioning */
+                width: 65%;
+                padding-right: 50px;
+                padding-left: 50px;
+                margin-right: 1%;
+                margin-left: 1%;
+                border-radius: 5%;
+            }
+            .footer {
+                z-index:2;
+                padding-top: 10px;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 47px;
+                background-color: lightgray;
+                color: black;
+                text-align: center;
+                position: fixed;
+            }
+            /* Style for image slideshow container and items */
+            .mySlidesContainer {
+                position: relative;
+                max-width: 100%; /* Container genişliğini sınırlayın */
+                overflow: hidden; /* İçeriğin taşmasını engelleyin */
+            }
+
+            .mySlides {
+                display: none;
+                width: 100%; /* Görsellerin container genişliğini doldurmasını sağlar */
+            }
+
+            .w3-button {
+                position: absolute;
+                font-weight: bold;
+                color: black; /* Buton metin rengi */
+                background-color: white; /* Buton arka plan rengi */
+                border: none;
+                padding: 10px;
+                border-radius: 50%;
+                z-index: 1000; /* Butonların diğer içeriklerin üstünde görünmesini sağlar */
+            }
+
+            .w3-display-left {
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .w3-display-right {
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .mySlides.show {
+                opacity: 1;
+            }
+
+            .image-button {
+                margin-left: 4%;
+                display: inline-block;
+                text-align: center;
+                border: none;
+                background: none;
+                cursor: pointer;
+                padding: 0;
+                margin-bottom: 30px;
+            }
+
+                .image-button img {
+                    width: 100px; /* Adjust the width as needed */
+                    height: auto;
+                }
+
+                .image-button span {
+                    display: block;
+                    margin-top: 5px;
+                    color: white; /* Text color */
+                    font-size: 14px; /* Adjust the font size */
+                }
+
+                .image-button:hover {
+                    transform: scale(0.97);
+                }
+
+            .limited-text {
+                display: -webkit-box; /* Metni bir kutu içinde gösterir */
+                -webkit-line-clamp: 1; /* Satır sayısını sınırlayın */
+                -webkit-box-orient: vertical; /* Kutu yönünü dikey olarak ayarlayın */
+                overflow: hidden; /* Taşan metni gizle */
+                text-overflow: ellipsis; /* Taşan metni '...' ile göster */
+                backdrop-filter: blur(30px);
+            }
+
+
+            .modal fade {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+          
+        </style>
+    </head>
+    <body>
+        <div class="footer">
+            <p>Footer</p>
+        </div>
+        <div class="container-fluid p-0 ">
+            <div class="row ">
+
+                <div class=" col-12 col-md-4 col-lg-3 col-xl-12 order-md-1 columnA ">
+
+                    <div class="columnA1 flex-fill">
+                        <h3 style="text-align:center ; margin-top:-5%"> Şirket Linkleri</h3>
+                        <!-- Departman Listesi Butonu ve Modal -->
+                        <!-- Buton: Departman Listesi -->
+                        <!-- Departman Listesi Butonu ve Modal -->
+                        <div class="duzen" style="display:flex; justify-content:center; align-items:center;">
+                            <button type="button" class="image-button" onclick="$('#departmanModal').modal('show');">
+                                <img src="/Content/image/model-img/departman1.jpeg" style="width:10vh; height:10vh" alt="Departman Listesi">
+                                <span style="color:black">Departman Listesi</span>
+                            </button>
+
+                            <!-- Modal: Departman Listesi -->
+                            <div class="modal fade" id="departmanModal" tabindex="-1" role="dialog" aria-labelledby="departmanModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="departmanModalLabel">Departman Listesi</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table id="departmanTable" class="table table-striped border-bottom">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Departman ID</th>
+                                                            <th>Departman Adı</th>
+                                                            <th>Departman Numarası</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var dprtmn in Model.IK_Departmen)
+                                                        {
+                                                            <tr>
+                                                                <td>@dprtmn.DepartmanID</td>
+                                                                <td>@dprtmn.DepartmanIsim</td>
+                                                                <td>@dprtmn.Departman_No</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Personel Listesi Butonu ve Modal -->
+                            <button type="button" class="image-button" data-toggle="modal" data-target="#personelModal">
+                                <img src="/Content/image/model-img/personel.jpg" style="width:10vh; height:10vh" alt="Personel Listesi">
+                                <span style="color:black">Personel Listesi </span>
+                            </button>
+
+                            <!-- Modal: Personel Listesi -->
+                            <div class="modal fade bd-example-modal-lg" id="personelModal" tabindex="-1" role="dialog" aria-labelledby="personelModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="personelModalLabel" style="color:black">Personel Listesi</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table id="personelTable" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Departman</th>
+                                                            <th>Sicil NO</th>
+                                                            <th>Adı</th>
+                                                            <th>Soyad</th>
+                                                            <th>Doğum Tarihi</th>
+                                                            <th>Cinsiyeti</th>
+                                                            <th>Rolü</th>
+                                                            <th>Resimi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+
+                                                        @foreach (var prsnl in Model.prs_dprtmn_rl)
+                                                        {
+                                                            <tr>
+                                                                <td>@prsnl.PersonelID</td>
+                                                                <td>@prsnl.DepartmanIsim</td>
+                                                                <td>@prsnl.PersonelSicilNo</td>
+                                                                <td>@prsnl.PersonelAd</td>
+                                                                <td>@prsnl.PersonelSoyad</td>
+                                                                <td>@Convert.ToDateTime(prsnl.PersonelDogumTarihi).ToShortDateString()</td>
+                                                                <td>@prsnl.PersonelCinsiyet</td>
+                                                                <td>@prsnl.RolIsim</td>
+                                                                <td><img src="@prsnl.PersonelResim" style="width:30px;height:30px;border-radius:50%" /></td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Duyuru Listesi Butonu ve Modal -->
+                            <button type="button" class="image-button" data-toggle="modal" data-target="#duyuruModal">
+                                <img src="/Content/image/model-img/duyurular2.jpg" style="width:10vh; height:10vh" alt="Duyuru Listesi">
+                                <span style="color:black">Duyuru Listesi</span>
+                            </button>
+
+                            <!-- Modal: Duyuru Listesi -->
+                            <div class="modal fade" id="duyuruModal" tabindex="-1" role="dialog" aria-labelledby="duyuruModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="duyuruModalLabel" style="color:black">Duyuru Listesi</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table id="duyuruTable" class="table border-bottom">
+                                                <tbody>
+                                                    @foreach (var dyr in Model.IK_Duyurus)
+                                                    {
+                                                        <tr>
+                                                            <td>@dyr.DuyuruMetin</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JavaScript Kodu -->
+                        <script>
+                            $(document).ready(function () {
+                                // Departman Listesi Modalı açıldığında DataTable'ı başlat
+                                if (!$.fn.dataTable.isDataTable('#departmanTable')) {
+                                    $('#departmanTable').DataTable({
+                                        "paging": true,
+                                        "ordering": true,
+                                        "info": true,
+                                        "autoWidth": false,
+                                        "language": {
+                                            "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Turkish.json"
+                                        }
+                                    });
+                                }
+
+                                // Personel Listesi Modalı açıldığında DataTable'ı başlat
+                                $('#personelModal').on('shown.bs.modal', function () {
+                                    if (!$.fn.dataTable.isDataTable('#personelTable')) {
+                                        $('#personelTable').DataTable({
+                                            "paging": true,
+                                            "ordering": true,
+                                            "info": true,
+                                            "autoWidth": false,
+                                            "language": {
+                                                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Turkish.json"
+                                            }
+                                        });
+                                    }
+                                });
+
+                                // Duyuru Listesi Modalı açıldığında DataTable'ı başlat
+                                $('#duyuruModal').on('shown.bs.modal', function () {
+                                    if (!$.fn.dataTable.isDataTable('#duyuruTable')) {
+                                        $('#duyuruTable').DataTable({
+                                            "paging": true,
+                                            "ordering": true,
+                                            "info": true,
+                                            "autoWidth": false,
+                                            "language": {
+                                                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Turkish.json"
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+
+                    </div>
+
+                    <div class="columnA2 flex-fill">
+                        <div style="margin-top:10% ">
+                            <h3 style="text-align:center; margin-top:-5%">Diğer Linkler</h3> <!-- Ekledim: başlık uyumu için -->
+                            <div class="duzen" style="display: flex; justify-content: center; align-items: center;">
+                                <button type="button" class="image-button" onclick="window.open('https://www.turkiye.gov.tr', '_blank')">
+                                    <img src="/Content/image/model-img/edevlet.png" style="width:11vh; height:11vh; border-radius:25%;" alt="E-DEVLET">
+                                    <span style="color:black">E-DEVLET</span>
+                                </button>
+                                <button type="button" class="image-button" onclick="window.open('https://www.mgm.gov.tr/?il=Kayseri', '_blank')">
+                                    <img src="/Content/image/model-img/havadurumu.png" style="width:11vh; height:11vh; border-radius:25%;" alt="Hava Durumu">
+                                    <span style="color:black">Hava Durumu</span>
+                                </button>
+                                <button type="button" class="image-button" onclick="window.open('https://www.bellona.com.tr/', '_blank')">
+                                    <img src="/Content/image/model-img/bellona.png" style="width:11vh; height:11vh; border-radius:25%;" alt="Bellona.com">
+                                    <span style="color:black">Bellona.com</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @*JavaScript Fonksiyonları*@
+                    <script>
+                        function showDepartmanList() {
+                            $('#departmanModal').modal('show');
+                        }
+
+                        function showPersonelList() {
+                            $('#personelModal').modal('show');
+                        }
+
+                        function showDuyuruList() {
+                            $('#duyuruModal').modal('show');
+                        }
+                    </script>
+                </div>
+                <div class="col-12 col-md-4 col-lg-12 col-xl-2 order-md-2 columnC">
+                    <div class="w3-content w3-display-container" style="padding-left:5px">
+                        <div class="mySlidesContainer">
+                            @{
+                                foreach (var item in Model.IK_Duyurus)
+                                {
+                                    <div class="mySlides">
+                                        <img src="@item.DuyuruResim" style="width:100%; height: 370px">
+                                        <p style="margin-top:-20px; font-size:20px" class="limited-text">@item.DuyuruMetin</p>
+
+                                    </div>
+                                    if (@item.DuyuruMetin.Length > 100)
+                                    {
+                                        var txt = item.DuyuruMetin;
+                                        txt = txt.Substring(0, 100) + "...";
+                                    }
+                                }
+                            }
+                            <button class="w3-button w3-display-left" style="border-radius: 50%;" onclick="plusDivs(-1)">&#10094;</button>
+                            <button class="w3-button w3-display-right" style="border-radius: 50%;" onclick="plusDivs(1)">&#10095;</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+                var slideIndex = 1;
+                showDivs(slideIndex);
+
+                function plusDivs(n) {
+                    showDivs(slideIndex += n);
+                    resetAutoSlide(); // Otomatik kaydırmayı sıfırla
+                }
+
+                function showDivs(n) {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    if (n > x.length) { slideIndex = 1 }
+                    if (n < 1) { slideIndex = x.length }
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";
+                    }
+                    x[slideIndex - 1].style.display = "block";
+                }
+
+                var autoSlideInterval = setInterval(function () {
+                    plusDivs(1);
+                }, 10000);
+
+                function resetAutoSlide() {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = setInterval(function () {
+                        plusDivs(1);
+                    }, 10000);
+                }
+            </script>
+        </div>
+    </body>
+</html>
+}
+

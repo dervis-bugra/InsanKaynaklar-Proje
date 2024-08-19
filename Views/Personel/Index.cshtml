@@ -1,0 +1,173 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using InsanKaynaklarıProje.Models.Entity
+@model List<View_PersonelDepartman>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var rol = Session["dprtmn"] as string;
+
+}
+@if (rol == "PersonelSef" || rol == "Mudur")
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        th, td {
+            text-align: center;
+        }
+
+        .add {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 50px;
+        }
+    </style>
+
+    <table id="personelTable" class="table table-striped border-bottom">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Departman</th>
+                <th scope="col">Sicil NO</th>
+                <th scope="col">Adı</th>
+                <th scope="col">Soyad</th>
+                <th scope="col">Doğum Tarihi</th>
+                <th scope="col">Cinsiyeti</th>
+                <th scope="col">Rolü</th>
+                <th scope="col">Resmi</th>
+                <th scope="col">Sil</th>
+                <th scope="col">Güncelle</th>
+                @if (rol == "Mudur")
+                {
+                    <th scope="col">Çalışma Durumu</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            ;
+            @if (rol == "Mudur")
+            {
+                foreach (var prsnl in Model)
+                {
+                    if (prsnl.CalısmaDurumu == true)
+                    {
+                        <tr class="tablo">
+                            <th scope="row">@prsnl.PersonelID</th>
+                            <td>@prsnl.DepartmanIsim</td>
+                            <td>@prsnl.PersonelSicilNo</td>
+                            <td>@prsnl.PersonelAd</td>
+                            <td>@prsnl.PersonelSoyad</td>
+                            <td>@Convert.ToDateTime(prsnl.PersonelDogumTarihi).ToShortDateString()</td>
+                            <td>@prsnl.PersonelCinsiyet</td>
+                            <td>@prsnl.RolIsim</td>
+                            <td><img src="@prsnl.PersonelResim" style="width:30px;height:30px;border-radius:50%" /></td>
+                            <td>
+                                <a href="/Personel/PrsnlSil/@prsnl.PersonelID" id="btn3" class="btn btn-danger sil-btn">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+
+                            <td><a href="/Personel/PrsnlGuncelle/@prsnl.PersonelID" class="btn btn-primary"><i class="fa-solid fa-rotate-left"></i></a></td>
+                            <td>
+                                <a href="/Personel/PrsnlAktiflik/@prsnl.PersonelID">
+                                    @if (prsnl.Aktiflik == true)
+                                    {
+                                        <i style="width:75px; height:30px;text-align:center" class="fa-solid fa-user-tie btn btn-success"></i>
+                                    }
+                                    else
+                                    {
+                                        <i style="width:75px; height:30px;text-align:center" class="fa-solid fa-user-slash btn btn-danger"></i>
+                                    }
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                foreach (var prsnl in Model)
+                {
+                    if (prsnl.CalısmaDurumu == true)
+                    {
+
+                        if (prsnl.Aktiflik == true)
+                        {
+                            <tr class="tablo">
+                                <th scope="row">@prsnl.PersonelID</th>
+                                <td>@prsnl.DepartmanIsim</td>
+                                <td>@prsnl.PersonelSicilNo</td>
+                                <td>@prsnl.PersonelAd</td>
+                                <td>@prsnl.PersonelSoyad</td>
+                                <td>@Convert.ToDateTime(prsnl.PersonelDogumTarihi).ToShortDateString()</td>
+                                <td>@prsnl.PersonelCinsiyet</td>
+                                <td>@prsnl.RolIsim</td>
+                                <td><img src="@prsnl.PersonelResim" style="width:30px;height:30px;border-radius:50%" /></td>
+                                <td>
+                                    <a href="/Personel/PrsnlSil/@prsnl.PersonelID" id="btn3" class="btn btn-danger sil-btn">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td><a href="/Personel/PrsnlGuncelle/@prsnl.PersonelID" class="btn btn-primary"><i class="fa-solid fa-rotate-left"></i></a></td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+    <a href="/Personel/PrsnlEkle" class="btn btn-warning add">
+        <i class="fa-duotone fa-solid fa-plus fa-2xl"></i>
+    </a>
+    @Html.ActionLink("Excel'e Aktar", "ExportToExcel", "Personel")
+
+    <script>
+        $(document).ready(function () {
+            $('#personelTable').DataTable({
+                "paging": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Turkish.json"
+                }
+            });
+        });
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index", "Home")';
+    </script>
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('.sil-btn').on('click', function (e) {
+        e.preventDefault();
+        var urlToRedirect = $(this).attr('href');
+        Swal.fire({
+            title: 'Bu personeli silmek istediğinize emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Hayır, iptal!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlToRedirect;
+            }
+        });
+    });
+</script>

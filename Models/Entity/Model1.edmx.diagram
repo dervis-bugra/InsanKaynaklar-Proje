@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="811cf9a68164471db147ff7f0a7bacba" Name="Diagram1">
+        <EntityTypeShape EntityType="DbIKProjeModel.IK_Duyuru" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.IK_Mesaj" Width="1.5" PointX="0.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.IK_Personel" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.IK_Rol" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.sysdiagrams" Width="1.5" PointX="13.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.MesajlarView_Model" Width="1.5" PointX="6.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.Personel_departman_rol_model_view" Width="1.5" PointX="8.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.View_Mesajlar" Width="1.5" PointX="6.625" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.View_PersonelDepartman" Width="1.5" PointX="9.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbIKProjeModel.IK_Departman" Width="1.5" PointX="0.5" PointY="4.625" />
+        <EntityTypeShape EntityType="DbIKProjeModel.Maliye" Width="1.5" PointX="2.125" PointY="2" />
+        <EntityTypeShape EntityType="DbIKProjeModel.Dokumanlar" Width="1.5" PointX="2.125" PointY="4.625" />
+        <EntityTypeShape EntityType="DbIKProjeModel.View_DOKUMANLARDEPARTMANLAR" Width="1.5" PointX="8.25" PointY="4.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,108 @@
+﻿@model InsanKaynaklarıProje.Models.Entity.PersonellerDepartmanlarViewModel
+@{
+    Layout = null ;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ 
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: powderblue;
+        }
+        .img1{
+            width:760px;
+        }  
+    </style>
+</head>
+<body>
+    <!-- Registration 4 - Bootstrap Brain Component -->
+    <section class="p-3 p-md-4 p-xl-5">
+        <div class="container">
+            <div class="card border-light-subtle shadow-sm">
+                <div class="row g-0">
+                    <div class="col-12 col-md-6">
+
+                        <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="~/Content/image/img1.jpg" alt="image">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card-body p-3 p-md-4 p-xl-5">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-5">
+
+                                    </div>
+                                </div>
+                            </div>
+                            @*enctype*@
+                            @using (Html.BeginForm("PersonelKaydet", "Personel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <div class="row gy-3 gy-md-4 overflow-hidden">
+                                    <div class="col-12">
+                                        <label class="form-label">Personel Adı<span class="text-danger">*</span></label>
+                                        @Html.TextBoxFor(m => m.IK_Personel.PersonelAd, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Personel Soyadı<span class="text-danger">*</span></label>
+                                        @Html.TextBoxFor(m => m.IK_Personel.PersonelSoyad, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Personel Doğum Tarihi <span class="text-danger">*</span></label>
+                                        @Html.TextBoxFor(m => m.IK_Personel.PersonelDogumTarihi, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                    </div>
+                                    <div>
+                                        <label class="radio-label"> Cinsiyet <span class="text-danger">*</span></label> <br />
+                                        Erkek    @Html.RadioButtonFor(m => m.IK_Personel.PersonelCinsiyet, "Erkek", new { @class = "form-check" })
+                                        Kadın  @Html.RadioButtonFor(m => m.IK_Personel.PersonelCinsiyet, "Kadın", new { @class = "form-check" })
+                                    </div>
+                                    <div>
+                                        <div class="col-12">
+                                            <label class="form-label">Personel Kullanıcı Adı<span class="text-danger">*</span></label>
+                                            @Html.TextBoxFor(m => m.IK_Personel.PersonelKullanıcıAdı, new { @class = "form-control" })
+                                            <span id="usernameFeedback"></span>
+
+                                        </div>
+                                        <label class="form-label">personel departman </label>
+                                        @Html.DropDownListFor(m => m.IK_Personel.PersonelDepartmanId, new SelectList(Model.IK_Departmen, "DepartmanID", "DepartmanIsim"), "Seçiniz", new { @class = "form-control" })
+                                        @*burada onemlı olan departman ıd ısmı yazdıgım ıcın lıst de yazmıyor *@
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Personel Sicil Numarası <span class="text-danger">*</span></label>
+                                        @Html.TextBoxFor(m => m.IK_Personel.PersonelSicilNo, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Personel Rol <span class="text-danger">*</span></label>
+                                        @Html.DropDownListFor(m => m.IK_Personel.PersonelRol, new SelectList(Model.ıK_Rols, "RolId", "RolIsim"), "Seçiniz", new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Personel Şifre <span class="text-danger">*</span></label>
+                                        @Html.PasswordFor(m => m.IK_Personel.PersonelSifre, new { @class = "form-control" })
+                                    </div>
+
+                                    <label class="form-label">Personel Resim<span class="text-danger">*</span></label>
+
+                                    <input type="file" name="File" class="form-control" />
+                                </div>
+                                <br />
+                                <div class="d-grid">
+                                    <button class="btn bsb-btn-xl btn-primary" type="submit">KAYDET</button>
+                                </div>
+                                @Html.HiddenFor(x => x.IK_Personel.PersonelID)
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+</html>

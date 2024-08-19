@@ -1,0 +1,140 @@
+﻿@{
+    var dprtmn = Session["dprtmn"] as string;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IK_Proje</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .header h2 {
+                color: white;
+                font-size: 200%;
+            }
+
+        .navbar {
+            border-radius: 0;
+        }
+
+        .navbar-header, .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: flex-start;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .navbar-nav > li > a {
+            padding: 10px 15px;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 10px 20px;
+        }
+
+        .navbar-right img, .navbar-right h6 {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .navbar-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .navbar-right h6 {
+            color: white;
+            font-weight: bold;
+            padding-top: 6px;
+            margin-right: 10px;
+        }
+       
+    </style>
+</head>
+<body>
+   
+    <div class="header">
+        <h2><img src="~/Content/image/sayfa-ici/bellona.png"  style="width:250px; padding-top:0 ;padding-bottom:0 "></h2>
+    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav" style="margin-top:5px">
+                    <li><a href="/Home/Index">Home</a></li>
+                    @if (dprtmn == "Mudur" || dprtmn == "IT")
+                    {
+                        <li><a href="/Departman/Index">Departman</a></li>
+                    }
+                    @if (dprtmn == "InsanKaynaklari" || dprtmn == "Mudur" || dprtmn == "IT")
+                    {
+                        <li><a href="/Personel/Index">Personel</a></li>
+                    }
+                    @if (dprtmn == "MaliyeSef" || dprtmn == "Mudur")
+                    {
+                        <li><a href="/Maliye/Index">Maliye</a></li>
+                    }
+
+                    @if (dprtmn == "InsanKaynaklari" || dprtmn == "Mudur")
+                    {
+                        <li><a href="/Duyurular/Index">Duyurular</a></li>
+                    }
+                   <li><a href="/Dokuman/Index">Dokümanlar</a></li>
+                    <li><a href="/Mesajlar/Index">Mesajlar</a></li>
+                    <li><a href="/Home/adresler">İletişim</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-top:-3px;">
+                    <li><img src="@Session["img"]" style="width:45px ; height:45px; margin-top:6px" />   </li>
+                    <li><h6 style="text-transform:uppercase">@Session["name"]   @Session["srname"]  </h6></li>
+                    <li><h6>@Session["dep"]</h6></li>
+                    @if (Session["name"] == null)
+                    {
+                        <li style="margin-top:2px"><a href="/Security/logout"><span class="glyphicon glyphicon-log-in"></span> Giriş yap</a></li>
+                    }
+                    @if (Session["name"] != null)
+                    {
+                        <li style="margin-top:4px"><a href="/Security/logout" onclick="return confirm('Çıkmak istediğinize emin misiniz?')">Çıkış Yap <span class="glyphicon glyphicon-log-out"></span></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+     
+</body>
+</html>
